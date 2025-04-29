@@ -1,0 +1,60 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./backend/docker/development/Dockerfile-laravel
+        restart: unless-stopped
+        ports:
+            - "9000:9000"
+            - "8000:8000"
+            - "5173:5173"
+        depends_on:
+            - db
+        volumes:
+            - ./backend:/usr/share/nginx/html
+            - ./backend/database:/var/lib/sqlite
+        environment:
+            DB_CONNECTION: sqlite
+            DB_DATABASE: /var/lib/sqlite/database.sqlite
+            DB_FOREIGN_KEYS: true
+        networks:
+            - app-network
+    nginx:
+        image: nginx:1-alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./backend/docker/development/nginx.conf:/etc/nginx/templates/default.conf.template
+        networks:
+            - app-network
+        depends_on:
+            - app
+    db:
+        build:
+            context: .
+            dockerfile: ./backend/docker/development/Dockerfile-sqlite
+        volumes:
+            - ./backend/database:/var/lib/sqlite
+        restart: unless-stopped
+        networks:
+            - app-network
+    frontend:
+        build:
+            context: .
+            dockerfile: ./frontend/docker/development/Dockerfile
+        restart: unless-stopped
+        ports:
+        - "5174:5173"
+        volumes:
+        - ./frontend:/app
+        networks:
+        - app-network
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    sqlite-data:
+        driver: local
