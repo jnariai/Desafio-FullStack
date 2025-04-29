@@ -16,8 +16,8 @@ it('create nivel', function () {
     $nivel = Nivel::first();
     $response->assertCreated();
     expect($nivel->nivel)->toBe(Str::title($this->payload['nivel']))
-        ->and($response->json('id'))->toBe($nivel->id)
-        ->and($response->json('nivel'))->toBe(Str::title($this->payload['nivel']));
+        ->and($response->json('data.id'))->toBe($nivel->id)
+        ->and($response->json('data.nivel'))->toBe(Str::title($this->payload['nivel']));
 });
 
 it('does not allow duplicate nivel creation', function () {
@@ -41,8 +41,8 @@ it('update nivel', function () {
 
     $response->assertOk();
 
-    expect($response->json('nivel'))->toBe(Str::title($updatePayload['nivel']))
-        ->and($response->json('id'))->toBe($nivel->id)
+    expect($response->json('data.nivel'))->toBe(Str::title($updatePayload['nivel']))
+        ->and($response->json('data.id'))->toBe($nivel->id)
         ->and($nivel->nivel)->toBe(Str::title($updatePayload['nivel']));
 });
 

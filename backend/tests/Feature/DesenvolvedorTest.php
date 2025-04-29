@@ -3,6 +3,7 @@
 use App\Enums\Sexo;
 use App\Models\Desenvolvedor;
 use App\Models\Nivel;
+use Carbon\CarbonImmutable;
 
 beforeEach(function () {
     $nivel = Nivel::factory()->create();
@@ -22,16 +23,17 @@ it('create desenvolvedor', function () {
 
     $response->assertCreated();
     expect($desenvolvedor->nivel_id)->toBe($this->storePayload['nivel_id'])
-        ->and($desenvolvedor->nome)->toBe(Str::title($this->storePayload['nome']))
-        ->and($desenvolvedor->sexo->value)->toBe($this->storePayload['sexo'])
-        ->and($desenvolvedor->data_nascimento->format('Y-m-d'))->toBe($this->storePayload['data_nascimento'])
-        ->and($desenvolvedor->hobby)->toBe(Str::ucfirst($this->storePayload['hobby']))
-        ->and($response->json('id'))->toBe($desenvolvedor->id)
-        ->and($response->json('nivel.id'))->toBe($this->storePayload['nivel_id'])
-        ->and($response->json('nome'))->toBe(Str::title($this->storePayload['nome']))
-        ->and($response->json('sexo'))->toBe($this->storePayload['sexo'])
-        ->and($response->json('data_nascimento'))->toBe($this->storePayload['data_nascimento'])
-        ->and($response->json('hobby'))->toBe(Str::ucfirst($this->storePayload['hobby']));
+                                    ->and($desenvolvedor->nome)->toBe(Str::title($this->storePayload['nome']))
+                                    ->and($desenvolvedor->sexo->value)->toBe($this->storePayload['sexo'])
+                                    ->and($desenvolvedor->data_nascimento->format('Y-m-d'))->toBe($this->storePayload['data_nascimento'])
+                                    ->and($desenvolvedor->hobby)->toBe(Str::ucfirst($this->storePayload['hobby']))
+                                    ->and($response->json('data.id'))->toBe($desenvolvedor->id)
+                                    ->and($response->json('data.nivel.id'))->toBe($this->storePayload['nivel_id'])
+                                    ->and($response->json('data.nome'))->toBe(Str::title($this->storePayload['nome']))
+                                    ->and($response->json('data.sexo'))->toBe($this->storePayload['sexo'])
+                                    ->and(CarbonImmutable::createFromFormat('d/m/Y',$response->json('data.data_nascimento'))->format('Y-m-d'))->toBe
+        ($this->storePayload['data_nascimento'])
+        ->and($response->json('data.hobby'))->toBe(Str::ucfirst($this->storePayload['hobby']));
 });
 
 it('update desenvolvedor', function () {
@@ -41,7 +43,7 @@ it('update desenvolvedor', function () {
         'nivel_id' => $nivel->id,
         'nome' => fake()->name(),
         'sexo' => fake()->randomElement(Sexo::cases())->value,
-        'data_nascimento' => fake()->date(),
+        'data_nascimento' => fake()->date('Y-m-d'),
         'hobby' => fake()->sentence(),
     ];
 
@@ -51,16 +53,17 @@ it('update desenvolvedor', function () {
 
     $response->assertOk();
     expect($desenvolvedor->nivel_id)->toBe($this->updatePayload['nivel_id'])
-        ->and($desenvolvedor->nome)->toBe(Str::title($this->updatePayload['nome']))
-        ->and($desenvolvedor->sexo->value)->toBe($this->updatePayload['sexo'])
-        ->and($desenvolvedor->data_nascimento->format('Y-m-d'))->toBe($this->updatePayload['data_nascimento'])
-        ->and($desenvolvedor->hobby)->toBe(Str::ucfirst($this->updatePayload['hobby']))
-        ->and($response->json('id'))->toBe($desenvolvedor->id)
-        ->and($response->json('nivel.id'))->toBe($this->updatePayload['nivel_id'])
-        ->and($response->json('nome'))->toBe(Str::title($this->updatePayload['nome']))
-        ->and($response->json('sexo'))->toBe($this->updatePayload['sexo'])
-        ->and($response->json('data_nascimento'))->toBe($this->updatePayload['data_nascimento'])
-        ->and($response->json('hobby'))->toBe(Str::ucfirst($this->updatePayload['hobby']));
+                                    ->and($desenvolvedor->nome)->toBe(Str::title($this->updatePayload['nome']))
+                                    ->and($desenvolvedor->sexo->value)->toBe($this->updatePayload['sexo'])
+                                    ->and($desenvolvedor->data_nascimento->format('Y-m-d'))->toBe($this->updatePayload['data_nascimento'])
+                                    ->and($desenvolvedor->hobby)->toBe(Str::ucfirst($this->updatePayload['hobby']))
+                                    ->and($response->json('data.id'))->toBe($desenvolvedor->id)
+                                    ->and($response->json('data.nivel.id'))->toBe($this->updatePayload['nivel_id'])
+                                    ->and($response->json('data.nome'))->toBe(Str::title($this->updatePayload['nome']))
+                                    ->and($response->json('data.sexo'))->toBe($this->updatePayload['sexo'])
+                                    ->and(CarbonImmutable::createFromFormat('d/m/Y',$response->json('data.data_nascimento'))->format('Y-m-d'))->toBe
+        ($this->updatePayload['data_nascimento'])
+        ->and($response->json('data.hobby'))->toBe(Str::ucfirst($this->updatePayload['hobby']));
 });
 
 it('delete desenvolvedor', function () {
