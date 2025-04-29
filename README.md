@@ -30,7 +30,7 @@ Antes de iniciar, certifique-se de ter instaladas as seguintes ferramentas:
    cd Desafio-FullStack
    ```
 
-2. **Suba os containers:**
+2. **Suba os containers e aguarde a montagem do ambiente**
    ```bash
    docker compose up -d
    ```
@@ -41,6 +41,10 @@ Antes de iniciar, certifique-se de ter instaladas as seguintes ferramentas:
 
 4. **Documentação da API:**
    - Consulte [http://localhost/api/docs](http://localhost/api/docs) para visualizar a documentação interativa da API (gerada com [Scramble](https://scramble.dedoc.co/).
+
+5. **Testes**
+   - Para executar os testes, acesse o container e execute `php artisan test`, ou execute o seguinte comando no terminal, a partir do diretório raiz do projeto:
+     `docker compose exec app php artisan test`.
 
 ## Observações
 
