@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin Nivel */
-class SelectNivelResource extends JsonResource
+final class SelectNivelResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id'    => $this->id,
             'nivel' => $this->nivel,
         ];
     }

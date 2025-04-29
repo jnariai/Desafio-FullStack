@@ -21,7 +21,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
  * @property CarbonImmutable $data_nascimento,
  * @property string $hobby,
  */
-class Desenvolvedor extends Model
+final class Desenvolvedor extends Model
 {
     use HasFactory;
 
@@ -34,26 +34,6 @@ class Desenvolvedor extends Model
         'data_nascimento',
         'hobby',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'nome' => TitleCaseCast::class,
-            'sexo' => Sexo::class,
-            'data_nascimento' => 'immutable_date',
-            'hobby' => UcFirstCaseCast::class,
-        ];
-    }
-
-    public function nivel(): BelongsTo
-    {
-        return $this->belongsTo(Nivel::class);
-    }
-
-    public function idade(): int
-    {
-        return $this->data_nascimento->diffInYears(CarbonImmutable::now());
-    }
 
     public static function index(FilterData $filter): LengthAwarePaginator
     {
@@ -79,5 +59,25 @@ class Desenvolvedor extends Model
                 ], 'like', "{$filter->search}%");
             })
             ->paginate($filter->pagination->per_page);
+    }
+
+    public function nivel(): BelongsTo
+    {
+        return $this->belongsTo(Nivel::class);
+    }
+
+    public function idade(): int
+    {
+        return $this->data_nascimento->diffInYears(CarbonImmutable::now());
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'nome'            => TitleCaseCast::class,
+            'sexo'            => Sexo::class,
+            'data_nascimento' => 'immutable_date',
+            'hobby'           => UcFirstCaseCast::class,
+        ];
     }
 }

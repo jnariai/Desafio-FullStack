@@ -14,7 +14,7 @@ final readonly class PaginationData
 
     ) {}
 
-    public static function fromRequest(Request $request): PaginationData
+    public static function fromRequest(Request $request): self
     {
         $page = $request->integer('page', 1);
         $perPage = $request->integer('per_page', 10);

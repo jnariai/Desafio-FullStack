@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /** @see \App\Models\Nivel */
-class NivelCollection extends ResourceCollection
+final class NivelCollection extends ResourceCollection
 {
     use PaginationInformation;
 

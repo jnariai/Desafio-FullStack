@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class NivelController extends Controller
+final class NivelController extends Controller
 {
     public function index(Request $request): NivelCollection
     {

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class NivelRequest extends FormRequest
+final class NivelRequest extends FormRequest
 {
     public function rules(): array
     {

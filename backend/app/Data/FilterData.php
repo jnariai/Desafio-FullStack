@@ -11,7 +11,7 @@ final readonly class FilterData
         public ?string $search = null,
     ) {}
 
-    public static function fromRequest(Request $request): FilterData
+    public static function fromRequest(Request $request): self
     {
         $pagination = PaginationData::fromRequest($request);
 

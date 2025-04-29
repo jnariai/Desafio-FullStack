@@ -7,16 +7,16 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
-class UpdateDesenvolvedorRequest extends FormRequest
+final class UpdateDesenvolvedorRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'nivel_id' => ['nullable', 'exists:niveis,id'],
-            'nome' => ['nullable', 'string', 'max:255'],
-            'sexo' => ['nullable', 'string', Rule::enum(Sexo::class)],
+            'nivel_id'        => ['nullable', 'exists:niveis,id'],
+            'nome'            => ['nullable', 'string', 'max:255'],
+            'sexo'            => ['nullable', 'string', Rule::enum(Sexo::class)],
             'data_nascimento' => ['nullable', 'date', 'date_format:Y-m-d'],
-            'hobby' => ['nullable', 'string', 'max:255'],
+            'hobby'           => ['nullable', 'string', 'max:255'],
         ];
     }
 

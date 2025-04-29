@@ -15,7 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class DesenvolvedorController extends Controller
+final class DesenvolvedorController extends Controller
 {
     public function index(Request $request): DesenvolvedorCollection
     {

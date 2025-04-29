@@ -6,7 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class UcFirstCaseCast implements CastsAttributes
+final class UcFirstCaseCast implements CastsAttributes
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {

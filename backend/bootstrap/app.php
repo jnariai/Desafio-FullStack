@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             return response()->json([
                 'message' => "$modelName não encontrado",
-                'status' => 404,
+                'status'  => 404,
             ], 404);
         });
     })->create();

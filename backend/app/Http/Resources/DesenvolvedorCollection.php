@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /** @see \App\Models\Desenvolvedor */
-class DesenvolvedorCollection extends ResourceCollection
+final class DesenvolvedorCollection extends ResourceCollection
 {
     use PaginationInformation;
 

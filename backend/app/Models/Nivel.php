@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class Nivel extends Model
+final class Nivel extends Model
 {
     use HasFactory;
 
@@ -20,18 +20,6 @@ class Nivel extends Model
         'nivel',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'nivel' => TitleCaseCast::class,
-        ];
-    }
-
-    public function desenvolvedores(): HasMany
-    {
-        return $this->hasMany(Desenvolvedor::class, 'nivel_id');
-    }
-
     public static function index(FilterData $filter): LengthAwarePaginator
     {
         return self::query()
@@ -39,5 +27,17 @@ class Nivel extends Model
                 $query->whereLike('nivel', "{$filter->search}%");
             })
             ->paginate($filter->pagination->per_page);
+    }
+
+    public function desenvolvedores(): HasMany
+    {
+        return $this->hasMany(Desenvolvedor::class, 'nivel_id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'nivel' => TitleCaseCast::class,
+        ];
     }
 }

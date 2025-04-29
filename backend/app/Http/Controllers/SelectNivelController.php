@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SelectNivelResource;
 use App\Models\Nivel;
 
-class SelectNivelController extends Controller
+final class SelectNivelController extends Controller
 {
     public function __invoke()
     {
